@@ -28,13 +28,13 @@ def open_file_content(filename):
     file_window.title(filename)
     file_window.geometry("600x400")
 
-    # Add text widget to display file content
+   
     text_area = tk.Text(file_window, wrap="word", height=20, width=70)
     text_area.insert("1.0", documents[filename])
-    text_area.config(state="disabled")  # Make text read-only
+    text_area.config(state="disabled") 
     text_area.pack(padx=10, pady=10, fill="both", expand=True)
 
-# Search function
+
 def perform_search():
     query = query_entry.get().strip()
     search_type = search_type_var.get()
@@ -45,7 +45,7 @@ def perform_search():
 
     results_listbox.delete(0, tk.END)
 
-    # Boolean Search
+  
     matches = boolean_search(query, documents)
 
     if not matches:
@@ -69,50 +69,43 @@ def perform_search():
         for rank, (doc, score) in enumerate(ranked_results, 1):
             results_listbox.insert(tk.END, f"{rank}. {doc} (Score: {score:.4f})")
 
-# Event handler for selecting an item in the listbox
-# Event handler for selecting an item in the listbox
+# selecting an item in the listbox
 def on_result_select(event):
     try:
         selected_item = results_listbox.get(results_listbox.curselection())
 
-        # Remove ranking number if present (e.g., "1. song.txt (Score: 0.4567)")
+        # Remove ranking number if present (e.g., "1. song.txt (Score: 0.4567)") so the date is "clickable"
         if ". " in selected_item:  
             selected_item = selected_item.split(". ", 1)[1]  
 
-        # Remove score part if present
+        # Remove score part if present -"-
         filename = selected_item.split(" (Score:")[0].strip()
 
         if filename and filename in documents:
             open_file_content(filename)
     except IndexError:
-        pass  # Avoid error if clicking on an empty listbox
+        pass 
 
 
-# GUI Setup
 root = tk.Tk()
 root.title("Search UI")
 root.geometry("500x400")
 
-# Search Type Dropdown
 search_type_var = tk.StringVar(value="Boolean Search")
 ttk.Label(root, text="Search Type:").pack(pady=5)
 search_type_menu = ttk.Combobox(root, textvariable=search_type_var, values=["Boolean Search", "Boolean + Ranked Search"], state="readonly")
 search_type_menu.pack()
 
-# Query Input
 ttk.Label(root, text="Enter Query:").pack(pady=5)
 query_entry = ttk.Entry(root, width=50)
 query_entry.pack(pady=5)
 
-# Search Button
 search_button = ttk.Button(root, text="Search", command=perform_search)
 search_button.pack(pady=10)
 
-# Results Listbox
 ttk.Label(root, text="Results:").pack()
 results_listbox = tk.Listbox(root, width=60, height=15)
 results_listbox.pack(pady=5)
 results_listbox.bind("<<ListboxSelect>>", on_result_select)  # Bind click event
 
-# Run the GUI
 root.mainloop()

@@ -17,3 +17,12 @@ UI is working, the boolean search includes the AND, OR , NOT opperators wich wor
 UI is very simple for now but I would like to improve it, wich would mean I would have to install some additional Dependencies (like pip install ttkbootstrap or similar stuff(is that allowed?))
 
 TO START JUST START THE main.py :D 
+
+More Info in the "Natural Language Processing and Information Retrieval.pdf"
+
+## Images
+
+Here are some images from the `testingAndPictures` folder:
+![Image 3](testingAndPictures/loveRankedSearch.png)
+![Image 1](testingAndPictures/andBooleanSearch.PNG)
+![Image 2](testingAndPictures/emptySearchUI.png)
