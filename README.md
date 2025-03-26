@@ -23,6 +23,6 @@ More Info in the "Natural Language Processing and Information Retrieval.pdf"
 ## Images
 
 Here are some images from the `testingAndPictures` folder:
-![Image 1](testingAndPictures/loveRankedSearch.png)
+![Image 1](testingAndPictures/loveRankedSearch.PNG)
 ![Image 2](testingAndPictures/andBooleanSearch.PNG)
-![Image 3](testingAndPictures/emptySearchUI.png)
+![Image 3](testingAndPictures/emptySearchUI.PNG)
