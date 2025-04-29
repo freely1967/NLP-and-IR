@@ -31,7 +31,7 @@ class LSISearch:
         self.svd = TruncatedSVD(n_components=self.n_components, random_state=42)
         self.X_lsi = self.svd.fit_transform(X_tfidf)
 
-    def search(self, query, top_k=10):
+    def search(self, query):
         """Performs LSI-based search."""
         query = preprocess(query)
         query_vec = self.vectorizer.transform([query])
@@ -40,8 +40,11 @@ class LSISearch:
         # Compute cosine similarities
         similarities = np.dot(self.X_lsi, query_lsi.T).flatten()
 
-        # Rank documents
-        ranked_indices = np.argsort(similarities)[::-1]
-        results = [(self.titles[idx], similarities[idx]) for idx in ranked_indices if similarities[idx] > 0]
+        # Remove results where similarity is 0.000000 (or close to 0)
+        results = [(self.titles[idx], similarities[idx]) for idx in range(len(similarities)) if similarities[idx] > 0.0001]
 
-        return results[:top_k]
+        # Rank documents by similarity (highest first)
+        results = sorted(results, key=lambda x: x[1], reverse=True)
+
+        return results
+

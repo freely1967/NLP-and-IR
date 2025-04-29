@@ -19,7 +19,7 @@ for file_name in os.listdir(folder_path):
             documents[file_name] = f.read()
 
 # --- Initialize LSI Model with n as adjustable metric---
-lsi_model = LSISearch(documents, n_components=75)
+lsi_model = LSISearch(documents, n_components=99)
 
 # --- Functions ---
 
@@ -35,7 +35,7 @@ def open_file_content(filename):
     text_area = tk.Text(file_window, wrap="word", height=20, width=70)
     text_area.insert("1.0", documents[filename])
     text_area.config(state="disabled")
-    text_area.pack(padx=10, pady=10, fill="both", expand=True)
+    text_area.pack(padx=20, pady=20, fill="both", expand=True)
 
 def perform_search():
     query = query_entry.get().strip()
@@ -69,6 +69,7 @@ def perform_search():
 
     elif search_type == "LSI Search":
         lsi_results = lsi_model.search(query)
+
         if not lsi_results:
             results_listbox.insert(tk.END, "No match found.")
             return
@@ -112,7 +113,7 @@ query_entry = ttk.Entry(root, width=50)
 query_entry.pack(pady=5)
 
 search_button = ttk.Button(root, text="Search", command=perform_search)
-search_button.pack(pady=10)
+search_button.pack(pady=20)
 
 ttk.Label(root, text="Results:").pack()
 results_listbox = tk.Listbox(root, width=60, height=18)
